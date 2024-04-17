@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1090788974059",
+    "project_id": "pq2-johnson-na",
+    "storage_bucket": "pq2-johnson-na.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1090788974059:android:dd1cd45b6087be3d450dae",
+        "android_client_info": {
+          "package_name": "edu.sdsmt.pq2_johnson_na"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCklabZ_w3YHT8iKQX38PVq6JC9QDDynpw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
