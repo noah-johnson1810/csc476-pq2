@@ -3,6 +3,7 @@ package edu.sdsmt.pq2_johnson_na;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -35,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     private int yDownCount = 0;
     private int releaseCount = 0;
 
+    private int buttonZeroCount = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,24 +55,65 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onTask0(View view) {
-        //TODO
+        buttonZeroCount += 1;
+        saveToDatabase(String.valueOf(buttonZeroCount), "count");
     }
 
     public void onTask1(View view) {
-        //TODO
+        saveToDatabase(String.valueOf(this.doubleDownCount), "countDoubleDown");
+        saveToDatabase(String.valueOf(this.yDownCount), "countSingleDown");
+        saveToDatabase(String.valueOf(this.releaseCount), "countRelease");
     }
 
     public void onTask2(View view) {
-        //TODO
+        saveToDatabase(String.valueOf(this.aText.getText()), "text/a");
+        saveToDatabase(String.valueOf(this.bText.getText()), "text/b");
+        saveToDatabase(String.valueOf(this.cText.getText()), "text/c");
     }
 
     public void onTask3(View view) {
-        //TODO
+        db.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String databaseContents = dataSnapshot.getValue().toString();
+                showDialog(databaseContents, "Database contents");
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("main", "error reading database", databaseError.toException());
+            }
+        });
     }
 
+    private void showDialog(String message, String title) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(message)
+                .setTitle(title)
+                .setPositiveButton("OK", null);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+
     public void onTask4(View view) {
-        //TODO
+        readFromDatabase("text", new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    String value = dataSnapshot.getValue().toString();
+                    showDialog(value, "Database text node contents");
+                } else {
+                    showDialog("empty", "Database text node contents");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle database error (if any)
+                // ...
+            }
+        });
     }
 
 
