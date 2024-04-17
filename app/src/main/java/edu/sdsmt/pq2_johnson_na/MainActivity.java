@@ -31,11 +31,16 @@ public class MainActivity extends AppCompatActivity {
     private EditText bText;
     private EditText cText;
 
+    private int doubleDownCount = 0;
+    private int yDownCount = 0;
+    private int releaseCount = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         left = findViewById(R.id.outputLeft);
         center = findViewById(R.id.outputCenter);
@@ -120,5 +125,32 @@ public class MainActivity extends AppCompatActivity {
     public void readFromDatabase(String path, ValueEventListener valueEventListener) {
         DatabaseReference databaseReference = db.child(path);
         databaseReference.addListenerForSingleValueEvent(valueEventListener);
+    }
+
+    public void setDoubleDownCount(int newCount) {
+        this.doubleDownCount = newCount;
+        left.setText(String.valueOf(this.doubleDownCount));
+    }
+
+    public int getDoubleDownCount() {
+        return this.doubleDownCount;
+    }
+
+    public void setYDownCount(int newCount) {
+        this.yDownCount = newCount;
+        center.setText(String.valueOf(this.yDownCount));
+    }
+
+    public int getYDownCount() {
+        return this.yDownCount;
+    }
+
+    public void setReleaseCount(int newCount) {
+        this.releaseCount = newCount;
+        right.setText(String.valueOf(newCount));
+    }
+
+    public int getReleaseCount() {
+        return this.releaseCount;
     }
 }
